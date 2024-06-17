@@ -1,20 +1,13 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import Login from "./screens/login/Login";
 
+/**
+ * O componente principal da aplicação.
+ * Este componente serve como ponto de entrada para a aplicação.
+ */
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+  /**
+   * Renderiza a tela de login por padrão.
+   * Esta é a primeira tela que o usuário verá quando abrir a aplicação.
+   */
+  return <Login />;
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
