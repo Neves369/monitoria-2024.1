@@ -5,18 +5,31 @@ import {
   StyleSheet,
   TextInput,
   TouchableOpacity,
+  ImageBackground,
+  Image,
+  Button,
 } from "react-native";
+import logo from "../../assets/adaptive-icon.png";
+import image from "../../assets/background.png";
 
 const LoginScreen = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   return (
-    <View style={styles.container}>
-      <View style={styles.backgroundContainer}></View>
+    //Componente de imagem de fundo
+    <ImageBackground source={image} style={styles.container} resizeMode="cover">
+      <View style={styles.backgroundContainer}>
+        {/* Componente de imagem com nossa logo */}
+        <Image style={styles.logo} source={logo} />
+        <Text style={styles.title}>EconoMês</Text>
+        <Text style={styles.text}>
+          A economia é maior se você não comprar nada
+        </Text>
+      </View>
 
       <View style={styles.loginContainer}>
-        <Text style={styles.title}>Login</Text>
+        <Text style={styles.titleLogin}>Login</Text>
 
         {/* Componente de entrada de texto */}
         <TextInput
@@ -29,6 +42,7 @@ const LoginScreen = () => {
           style={styles.input}
           placeholder="Senha"
           value={password}
+          autoCapitalize="none"
           onChangeText={(text) => setPassword(text)}
           secureTextEntry={true}
         />
@@ -41,7 +55,7 @@ const LoginScreen = () => {
           <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </ImageBackground>
   );
 };
 
@@ -51,17 +65,34 @@ const styles = StyleSheet.create({
   },
   backgroundContainer: {
     flex: 2 /* Ocupa 2/3 a tela */,
-    backgroundColor: "#ff0000fd",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "transparent",
+  },
+  logo: {
+    width: 100,
+    height: 100,
+  },
+  title: {
+    fontSize: 24,
+    color: "#ffffff",
+  },
+  text: {
+    fontSize: 12,
+    color: "#ffffff",
+    position: "absolute",
+    bottom: 0,
   },
   loginContainer: {
     flex: 1 /* Ocupa 1/3 a tela */,
-    backgroundColor: "#0000ff",
+    elevation: 5,
+    backgroundColor: "#ececec",
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
     justifyContent: "space-between" /* Alinha verticalmente o conteúdo */,
     padding: 20 /* Adiciona padding ao container */,
   },
-  title: {
+  titleLogin: {
     fontSize: 24,
     color: "#333",
   },
