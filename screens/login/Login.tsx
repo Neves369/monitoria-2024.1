@@ -9,12 +9,20 @@ import {
   Image,
   Button,
 } from "react-native";
-import logo from "../../assets/adaptive-icon.png";
 import image from "../../assets/background.png";
-
+import logo from "../../assets/adaptive-icon.png";
+import { useForm, Controller } from "react-hook-form";
+import app from "../../app.json";
 const LoginScreen = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const submeter = (data: any) => {
+    console.log("teste: ", data);
+  };
 
   return (
     //Componente de imagem de fundo
@@ -32,27 +40,53 @@ const LoginScreen = () => {
         <Text style={styles.titleLogin}>Login</Text>
 
         {/* Componente de entrada de texto */}
-        <TextInput
-          style={styles.input}
-          placeholder="Usuário"
-          value={username}
-          onChangeText={(text) => setUsername(text)}
+        <Controller
+          control={control}
+          name="email"
+          rules={{
+            required: true,
+          }}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <TextInput
+              style={styles.input}
+              placeholder="Usuário"
+              value={value}
+              onBlur={onBlur}
+              onChangeText={(text) => onChange(text)}
+            />
+          )}
         />
-        <TextInput
-          style={styles.input}
-          placeholder="Senha"
-          value={password}
-          autoCapitalize="none"
-          onChangeText={(text) => setPassword(text)}
-          secureTextEntry={true}
+        {errors.email && (
+          <Text style={{ color: "red" }}>E-mail é obrigatório</Text>
+        )}
+        <Controller
+          control={control}
+          name="senha"
+          rules={{
+            required: true,
+          }}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <TextInput
+              style={styles.input}
+              placeholder="Senha"
+              value={value}
+              autoCapitalize="none"
+              onBlur={onBlur}
+              onChangeText={(text) => onChange(text)}
+              secureTextEntry={true}
+            />
+          )}
         />
+        {errors.email && (
+          <Text style={{ color: "red" }}>Senha é obrigatório</Text>
+        )}
 
         {/* View que pode ser pressionada, possui as mesmas propriedades de um button */}
         <TouchableOpacity
           style={styles.button}
-          onPress={() => console.log("Botão de login pressionado")}
+          onPress={handleSubmit(submeter)}
         >
-          <Text style={styles.buttonText}>Login</Text>
+          <Text style={styles.buttonText}>{app.expo.version}</Text>
         </TouchableOpacity>
       </View>
     </ImageBackground>
